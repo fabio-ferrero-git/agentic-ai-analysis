@@ -1,0 +1,64 @@
+{
+   "desirability_of_control":[
+      "I prefer a job where I have a lot of control over what I do and when I do it.",
+      "I enjoy political participation because I want to have as much of a say in running government as possible.",
+      "I try to avoid situations where someone else tells me what to do.",
+      "I would prefer to be a leader rather than a follower.",
+      "I enjoy being able to influence the actions of others.",
+      "I am careful to check everything on an automobile before I leave for a long trip.",
+      "Others usually know what is best for me.",
+      "I enjoy making my own decisions.",
+      "I enjoy having control over my own destiny.",
+      "I would rather someone else took over the leadership role when I'm involved in a group project.",
+      "I consider myself to be generally more capable of handling situations than others are.",
+      "I'd rather run my own business and make my own mistakes than listen to someone else's orders.",
+      "I like to get a good idea of what a job is all about before I begin.",
+      "When I see a problem I prefer to do something about it rather than sit by and let it continue.",
+      "When it comes to orders, I would rather give them than receive them.",
+      "I wish I could push many of life's daily decisions off on someone else.",
+      "When driving, I try to avoid putting myself in a situation where I could be hurt by someone else's mistake.",
+      "I prefer to avoid situations where someone else has to tell me what it is I should be doing.",
+      "There are many situations in which I would prefer only one choice rather than having to make a decision.",
+      "I like to wait and see if someone else is going to solve a problem so that I don't have to be bothered by it."
+   ],
+   "tia_pre_task":[
+      "One should be careful with unfamiliar automated systems",
+      "I rather trust a system than I mistrust it",
+      "Automated systems generally work well"
+   ],
+   "tia_post_task":[
+      "The system is capable of interpreting situations correctly",
+      "The system works reliably",
+      "A system malfunction is likely",
+      "The system is capable of taking over complicated tasks",
+      "The system might make sporadic errors",
+      "I am confident about the system's capabilities",
+      "The system state was always clear to me",
+      "The system reacts unpredictably",
+      "I was able to understand why things happened",
+      "It's difficult to identify what the system will do next",
+      "I already know similar systems",
+      "I have already used similar systems",
+      "The developers are trustworthy",
+      "The developers take my well-being seriously",
+      "I trust the system",
+      "I can rely on the system"
+   ],
+   "tlx_questionnaire":[
+      "How mentally demanding was the task?",
+      "How physically demanding was the task?",
+      "How hurried or rushed was the pace of the task?",
+      "How successful were you in accomplishing what you were asked to do?",
+      "How hard did you have to work to accomplish your level of performance?",
+      "How insecure, discouraged, irritated, stressed, and annoyed were you?"
+   ],
+   "grid_questionnaire":[
+      "The proactive support in the Mail section improved my email management (e.g. drafting emails).",
+      "The proactive support for Calendar management (e.g. automatically creating events by using the AI assistant) helped me schedule my events effectively.",
+      "The proactive support for Todo management (e.g. automatically creating tasks by using the AI assistant) helped me manage my tasks efficiently."
+   ],
+   "freeTextAnswers":[
+      "useful",
+      "improvements"
+   ]
+}
