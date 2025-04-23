@@ -116,7 +116,7 @@ EVENT_ACCEPTED = lambda ctx:\
 f'''
 ## RULES FOR 'EVENT_ACCEPTED' TYPE:
 <rules>
-1. FIND the NEW DATETIME of the EVENT. To do this, you MUST consider the "content" the most recent EMAIL THREAD message "content".
+1. FIND the NEW DATETIME of the EVENT. To do this, you MUST consider the most recent EMAIL THREAD message "content".
 2. The response MUST MUST ACCEPT the specific proposed new datetime for the EVENT. 
 3. The response MUST CONTAIN the new datetime, namely the day of the week, the calendar date, and the time.
 4. The response MUST CONTAIN exactly the SAME datetime mentioned in the most recent message in the EMAIL THREAD.
