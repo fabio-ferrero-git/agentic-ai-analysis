@@ -2,7 +2,7 @@ import sys
 
 # Main prompt template function
 prompt_follow_up = lambda email_thread, datetime, options, username: \
-f'''
+    f'''
 You are an AI-driven Email Analyzer and Generator specializing in the examination of user's EMAIL THREADS (both sent and received messages), generating responses that are consistent and relevant to the content of the EMAIL THREAD.
 
 ## TASK:
@@ -66,10 +66,10 @@ RESPONSE TYPES:
 {{
    "id": string,  // ID of the response TYPE
    "response": string  // Generated response
-   "event_original_date": string  // Original event date (JUST FOR 'EVENT_RESCHEDULED', null for other TYPES)
-   "event_new_date": string  // New event date (JUST FOR 'EVENT_RESCHEDULED')
-   "day_difference": string  // event_new_date - event_original_date (JUST FOR 'EVENT_RESCHEDULED', null for other TYPES)
-   "time_difference": string // event new hour - event original hour (JUST FOR 'EVENT_RESCHEDULED', null for other TYPES)
+   "event_original_date": string  // Original event date (JUST FOR 'RESCHEDULE_EVENT', null for other TYPES)
+   "event_new_date": string  // New event date (JUST FOR 'RESCHEDULE_EVENT')
+   "day_difference": string  // event_new_date - event_original_date (JUST FOR 'RESCHEDULE_EVENT', null for other TYPES)
+   "time_difference": string // event new hour - event original hour (JUST FOR 'RESCHEDULE_EVENT', null for other TYPES)
 }}
 
 3. Return ONLY the JSON object, no explanations. 
@@ -84,21 +84,19 @@ The response MUST mandatory follow the exactly JSON structure described in the <
 The following constraints MUST BE met:
 - The generated response MUST simulate the REPLY WRITTEN BY "{get_sender(email_thread)}".
 - The generated response MUST simulate the REPLY THAT "{username}" WILL RECEIVE.
- 
+
 
 Please, respond ONLY and JUST with the single JSON object. AVOID to add extra text.
 
 JSON Answer:
 '''
 
-
-
 #
 # Lambda functions for different response types
 #
-EVENT_RESCHEDULED = lambda ctx:\
-f'''
-## RULES FOR 'EVENT_RESCHEDULED' TYPE:
+RESCHEDULE_EVENT = lambda ctx: \
+    f'''
+## RULES FOR 'RESCHEDULE_EVENT' TYPE:
 <rules>
 1. Knowing that NOW is {ctx.get('current_date')} and it is {ctx.get('current_time')}, FIND the DATE and TIME of the EVENT. To do this, you MUST consider the "content" the EMAIL THREAD.  
 2. IMPORTANT: The EVENT'S DATE and TIME is WITHIN the message content of the EMAIL THREAD. 
@@ -111,10 +109,9 @@ f'''
 </rules>
 '''
 
-
-EVENT_ACCEPTED = lambda ctx:\
-f'''
-## RULES FOR 'EVENT_ACCEPTED' TYPE:
+ACCEPT_EVENT = lambda ctx: \
+    f'''
+## RULES FOR 'ACCEPT_EVENT' TYPE:
 <rules>
 1. FIND the NEW DATETIME of the EVENT. To do this, you MUST consider the most recent EMAIL THREAD message "content".
 2. The response MUST MUST ACCEPT the specific proposed new datetime for the EVENT. 
@@ -124,20 +121,18 @@ f'''
 </rules>
 '''
 
-
-EVENT_CANCELLED = lambda ctx:\
-f'''
-## RULES FOR 'EVENT_CANCELLED' TYPE:
+CANCEL_EVENT = lambda ctx: \
+    f'''
+## RULES FOR 'CANCEL_EVENT' TYPE:
 <rules>
 1. The response MUST communicate and emphasize the CANCELLATION of the event.
 2. STRONGLY AVOID TO RESCHEDULE the event. The event MUST BE CANCELLED.
 </rules>
 '''
 
-
-TASK_ADDED = lambda ctx:\
-f'''
-## RULES FOR 'TASK_ADDED' TYPE:
+ADD_TASK = lambda ctx: \
+    f'''
+## RULES FOR 'ADD_TASK' TYPE:
 <rules>
 1. The response MUST contain an ADDITIONAL TASK alongside the existing ones.
 2. Examples of additional tasks:
@@ -147,9 +142,8 @@ f'''
 </rules>
 '''
 
-
-GENERAL_ACKNOWLEDGMENT = lambda ctx:\
-f'''
+GENERAL_ACKNOWLEDGMENT = lambda ctx: \
+    f'''
 ## RULES FOR 'GENERAL_ACKNOWLEDGMENT' TYPE:
 <rules>
 1. The response MUST describe a simple an short acknowledgment message. For example, the response might include:
@@ -159,7 +153,6 @@ f'''
 ** IMPORTANT: The response MUST BE JUST AN ACKNOWLEDGMENT.
 </rules>
 '''
-
 
 
 def format_datetime(datetime):
@@ -173,7 +166,6 @@ def format_datetime(datetime):
         str: A string with each key-value pair from the datetime dictionary formatted as "key":"value".
     """
     return ''.join([f'"{k}":"{datetime[k]}"\n' for k in datetime])
-
 
 
 def format_email_thread(email_thread):
@@ -190,9 +182,10 @@ def format_email_thread(email_thread):
     """
     e = dict(email_thread)
     e['id'] = None
-    e['messages'] = "".join(['\n{\n' + ''.join([f'"{k}":"{msg[k]}"\n' for k in msg]) + '},' for msg in e['messages']]) or e.pop('messages', None)
+    e['messages'] = "".join(
+        ['\n{\n' + ''.join([f'"{k}":"{msg[k]}"\n' for k in msg]) + '},' for msg in e['messages']]) or e.pop('messages',
+                                                                                                            None)
     return ''.join([f'"{k}":"{e[k]}"\n' for k in e if e[k] is not None])
-
 
 
 def format_options(options):
@@ -208,7 +201,6 @@ def format_options(options):
     return "\n".join([f'- {o}' for o in options])
 
 
-
 def format_rules(options, datetime):
     """
     Formats rules for each option type using the corresponding function.
@@ -221,7 +213,6 @@ def format_rules(options, datetime):
         str: A string with all formatted rules joined with double newlines.
     """
     return "\n\n".join([getattr(sys.modules[__name__], f'{option["id"]}')(ctx=datetime) for option in options])
-
 
 
 def get_sender(email_thread):
