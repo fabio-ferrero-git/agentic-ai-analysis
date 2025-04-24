@@ -98,7 +98,7 @@ RESCHEDULE_EVENT = lambda ctx: \
     f'''
 ## RULES FOR 'RESCHEDULE_EVENT' TYPE:
 <rules>
-1. Knowing that NOW is {ctx.get('current_date')} and it is {ctx.get('current_time')}, FIND the DATE and TIME of the EVENT. To do this, you MUST consider the "content" the EMAIL THREAD.  
+1. Knowing that NOW is {ctx.get('current_date')} and it is {ctx.get('current_time')}, FIND the DATE and TIME of the EVENT. To do this, you MUST consider the "content" of the EMAIL THREAD.  
 2. IMPORTANT: The EVENT'S DATE and TIME is WITHIN the message content of the EMAIL THREAD. 
 3. STRONGLY AVOID TO CONSIDER the messages "timestamp".
 4. The generated response MUST mandatory have a DATETIME DIFFERENT from that contained in the EMAIL THREAD message. 
